@@ -12,4 +12,4 @@ Para más información sobre el curso, coloco algunos links que me ayudaron a ll
 
 ## Documentación propia
 
-En documentacion_flutter.md que se encuentra en la branch main, junto con el código, podrán observar anotaciones que llevé a cabo mientras seguía el curso.
+En documentacion_flutter.docx que se encuentra en la carpeta docs del código, podrán observar anotaciones que llevé a cabo mientras seguía el curso.
