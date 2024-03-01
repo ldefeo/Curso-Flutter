@@ -3,6 +3,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:prueba_1/routes/admin_handlers.dart';
 import 'package:prueba_1/routes/auth_handlers.dart';
+import 'package:prueba_1/routes/no_page_found_handlers.dart';
 
 class Flurorouter {
 
@@ -31,6 +32,9 @@ class Flurorouter {
     router.define(iconsroute, handler: AuthHandler.icons,  transitionType: TransitionType.none);
 
     router.define(blankroute, handler: AuthHandler.blank,  transitionType: TransitionType.none);
+
+    // 404
+    router.notFoundHandler = NoPageFoundHandlers.noPageFound;
 
   }
 
