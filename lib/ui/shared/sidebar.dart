@@ -38,8 +38,10 @@ class Sidebar extends StatelessWidget {
           const TextSeparator(text: 'UI Elements'),
           MenuItem(text: 'Icons', icon: Icons.list_alt_outlined, isActive: isActive(context, Flurorouter.iconsroute), onPressed: ()=>onPressed(Flurorouter.iconsroute)),
           MenuItem(text: 'Marketing', icon: Icons.mark_email_read_outlined, onPressed: (){}),
-          MenuItem(text: 'Blank Page', icon: Icons.post_add_outlined, onPressed: (){}),
+          MenuItem(text: 'Blank Page', icon: Icons.post_add_outlined, isActive: isActive(context, Flurorouter.blankroute), onPressed: ()=>onPressed(Flurorouter.blankroute)),
           MenuItem(text: 'Campaign', icon: Icons.campaign_outlined, onPressed: (){}),
+          const SizedBox(height: 30,),
+          const TextSeparator(text: 'Exit'),
           MenuItem(text: 'Logout', icon: Icons.logout_outlined, onPressed: (){}),
         ]
       ),
@@ -47,7 +49,7 @@ class Sidebar extends StatelessWidget {
   }
 
   bool isActive(BuildContext context, String route) {
-    
+
     return Provider.of<SideMenuProvider>(context).getCurrentPage() == route;
   }
 

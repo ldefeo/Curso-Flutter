@@ -14,6 +14,7 @@ class Flurorouter {
   static String registrationroute = '/registration';
   static String authroute = '/auth';
   static String iconsroute = '/auth/icons';
+  static String blankroute = '/auth/blank';
 
   static void configuredRoutes() {
 
@@ -29,6 +30,7 @@ class Flurorouter {
 
     router.define(iconsroute, handler: AuthHandler.icons,  transitionType: TransitionType.none);
 
+    router.define(blankroute, handler: AuthHandler.blank,  transitionType: TransitionType.none);
 
   }
 

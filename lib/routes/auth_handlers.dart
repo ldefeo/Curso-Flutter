@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:prueba_1/providers/auth_provider.dart';
 import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
+import 'package:prueba_1/ui/views/auth_views/blank_page_view.dart';
 
 import 'package:prueba_1/ui/views/auth_views/dashboard_view.dart';
 import 'package:prueba_1/ui/views/auth_views/icons_view.dart';
@@ -34,6 +35,20 @@ class AuthHandler {
     if (authProvider.authStatus == AuthStatus.authenticated) {
 
       return const IconsView();
+
+    }else {
+      return const HomeView();
+    }
+  });
+
+  static Handler blank = Handler(handlerFunc: (context, params) {
+
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false).setCurrentPage(Flurorouter.blankroute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+
+      return const BlankPageView();
 
     }else {
       return const HomeView();
