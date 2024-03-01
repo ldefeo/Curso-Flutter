@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prueba_1/providers/auth_provider.dart';
+import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
@@ -27,6 +28,11 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(
           lazy: false,  // quiero que cuando se levante la app, automaticamente empiece el proceso de autenticacion
           create: (_)=>AuthProvider()
+        ),
+
+        ChangeNotifierProvider(
+          lazy: false,  // quiero que cuando se levante la app, automaticamente empiece el proceso de autenticacion
+          create: (_)=>SideMenuProvider()
         ),
       ],
       child: const HomeApp(),

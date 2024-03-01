@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:prueba_1/ui/cards/white_card.dart';
 import 'package:prueba_1/ui/labels/custom_labels.dart';
 
+/// PLANTILLA DE UNA VIEW
+
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 

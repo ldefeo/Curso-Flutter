@@ -13,6 +13,7 @@ class Flurorouter {
   static String loginroute = '/login';
   static String registrationroute = '/registration';
   static String authroute = '/auth';
+  static String iconsroute = '/auth/icons';
 
   static void configuredRoutes() {
 
@@ -21,10 +22,13 @@ class Flurorouter {
     router.define(homeroute, handler: AdminHandler.principal, transitionType: TransitionType.fadeIn);
 
     router.define(loginroute, handler: AdminHandler.login, transitionType: TransitionType.fadeIn);
-
-    router.define(authroute, handler: AuthHandler.principal,  transitionType: TransitionType.fadeIn);
-
+    
     router.define(registrationroute, handler: AdminHandler.registration, transitionType: TransitionType.fadeIn);
+
+    router.define(authroute, handler: AuthHandler.principal,  transitionType: TransitionType.none);
+
+    router.define(iconsroute, handler: AuthHandler.icons,  transitionType: TransitionType.none);
+
 
   }
 

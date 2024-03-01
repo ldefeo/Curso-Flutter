@@ -2,10 +2,23 @@
 
 import 'package:flutter/material.dart';
 
-class SideMenuProvider {
+class SideMenuProvider extends ChangeNotifier {
 
   static late AnimationController menuController;  // AnimationController es como si fuera un controlador de un video
   static bool isOpen = false;
+
+  String currentPage = '';
+
+  String getCurrentPage() {
+    return currentPage;
+  }
+
+  void setCurrentPage( String routeName ) {
+    currentPage = routeName;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      notifyListeners();
+    });
+  }
 
   static Animation<double> movement = Tween<double>(begin: -200, end: 0) // -200 px porque el sidebar tiene de ancho 200 px, 
                                                                           // entonces se va colocar al lado de donde esta ahora (escondido)

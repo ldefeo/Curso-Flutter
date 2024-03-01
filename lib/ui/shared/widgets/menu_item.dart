@@ -15,7 +15,7 @@ class MenuItem extends StatefulWidget {
     required this.text,
     required this.icon, 
     this.isActive = false, 
-    required this.onPressed
+    required this.onPressed, 
   });
 
   @override

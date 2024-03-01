@@ -8,14 +8,16 @@ class WhiteCard extends StatelessWidget {
 
   final String? title;
   final Widget child;
+  final double? width;
 
-  const WhiteCard({super.key, this.title, required this.child});
+  const WhiteCard({super.key, this.title, required this.child, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.all(10.0),
+      width: width ?? null,
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: buildBoxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
