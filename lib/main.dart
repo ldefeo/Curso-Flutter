@@ -6,6 +6,7 @@ import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
+import 'package:prueba_1/services/notifications_service.dart';
 import 'package:prueba_1/ui/layouts/auth_layout.dart';
 import 'package:prueba_1/ui/layouts/checking_layout.dart';
 import 'package:prueba_1/ui/layouts/home_layout.dart';
@@ -53,6 +54,7 @@ class HomeApp extends StatelessWidget {
       initialRoute: Flurorouter.rootroute,
       navigatorKey: NavigationService.navigatorKey,
       onGenerateRoute: Flurorouter.router.generator,
+      scaffoldMessengerKey: NotificationsService.messengerKey,
       builder: ( _ , child ) {
 
         final authProvider = Provider.of<AuthProvider>(context);

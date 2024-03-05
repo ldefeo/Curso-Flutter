@@ -6,6 +6,7 @@ import 'package:prueba_1/models/http/auth_response.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
+import 'package:prueba_1/services/notifications_service.dart';
 
 enum AuthStatus {
   checking,
@@ -61,6 +62,7 @@ class AuthProvider extends ChangeNotifier {
       }
     ).catchError((e) {
       print('Error en: $e');
+      NotificationsService.showNotificationError( 'Usuario / Contraseña inválidos' );
     });
     
 
