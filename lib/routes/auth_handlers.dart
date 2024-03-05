@@ -20,7 +20,7 @@ class AuthHandler {
 
     if (authProvider.authStatus == AuthStatus.authenticated) {
 
-      return const DashboardView();
+      return DashboardView();
 
     }else {
       return const HomeView();

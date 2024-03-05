@@ -16,7 +16,7 @@ class AdminHandler {
     if (authProvider.authStatus == AuthStatus.notAuthenticated) {
       return const HomeView();
     } else {
-      return const DashboardView();
+      return DashboardView();
     }
 
   });

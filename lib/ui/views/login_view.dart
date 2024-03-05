@@ -1,5 +1,6 @@
 
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prueba_1/providers/auth_provider.dart';
@@ -52,16 +53,15 @@ class LoginView extends StatelessWidget {
                     Title(color: Colors.blueGrey, child: const Text('Log In', style: TextStyle(fontSize: 24),)),
                     const SizedBox(height: 10,),
                     TextFormField(
-                      onChanged: (value) => loginFormProvider.user = value,  // Se va a disparar cada vez que cambie el textformfield
+                      onChanged: ( value ) => loginFormProvider.email = value,
                       validator: ( value ) {
-                        if (value == null || value.isEmpty ) return 'Ingrese su usuario';
+                      if( !EmailValidator.validate(value ?? '') ) return 'Email no válido';
                         return null;
-                      } ,
+                      },
                       style: const TextStyle(color: Colors.black),
                       decoration: CustomInputs.loginAndRegisterDecoration(
-                        hint: 'Ingrese su usuario',
-                        label: 'Usuario',
-                        icon: Icons.supervised_user_circle_outlined
+                        hint: 'Ingrese su correo',
+                        label: 'Email',
                       ),
                     ),
                     const SizedBox(height: 10,),
@@ -69,7 +69,7 @@ class LoginView extends StatelessWidget {
                       onChanged: (value) => loginFormProvider.password = value,
                       validator: ( value ) {
                         if (value == null || value.isEmpty ) return 'Ingrese su contraseña';
-                        if (value.length < 8 ) return 'La contraseña debe ser de 8 caracteres o mas';
+                        if (value.length < 6 ) return 'La contraseña debe ser de 6 caracteres o mas';
                         return null; // Valido
                       },
                       style: const TextStyle(color: Colors.black),
@@ -83,9 +83,8 @@ class LoginView extends StatelessWidget {
                     const SizedBox(height: 20,),
                     OutlinedButton(
                       onPressed: (){
-                        ( loginFormProvider.validateForm() )
-                        ? authProvider.login(loginFormProvider.user, loginFormProvider.password)
-                        : print('Form not valid');
+                        final validForm = loginFormProvider.validateForm();
+                        if (validForm) authProvider.login(loginFormProvider.email, loginFormProvider.password);
                       }, 
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,

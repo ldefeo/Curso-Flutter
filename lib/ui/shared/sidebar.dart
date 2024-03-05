@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:prueba_1/providers/auth_provider.dart';
 import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/navigation_service.dart';
@@ -42,7 +43,7 @@ class Sidebar extends StatelessWidget {
           MenuItem(text: 'Campaign', icon: Icons.campaign_outlined, onPressed: (){}),
           const SizedBox(height: 30,),
           const TextSeparator(text: 'Exit'),
-          MenuItem(text: 'Logout', icon: Icons.logout_outlined, onPressed: (){}),
+          MenuItem(text: 'Logout', icon: Icons.logout_outlined, onPressed: (){ Provider.of<AuthProvider>(context, listen: false).logout();}),
         ]
       ),
     );

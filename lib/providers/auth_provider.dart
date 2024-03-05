@@ -27,18 +27,29 @@ class AuthProvider extends ChangeNotifier {
   }
   
   
-  login( String user, String password ) {
+  login( String email, String password ) {
 
     //TODO: peticion HTTP
 
-    token = 'afksjbnadlkfngks.hbjksfnlmxz.hbvjcskmlx';
-    LocalStorage.prefs.setString('token', token!); // el ! es porque yo se que lo tengo, aunque token puede ser opcional
+    final data = {
+      'correo': email,
+      'password': password
+    };
 
-    authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
-
-    notifyListeners();
-
-    NavigationService.goTo(Flurorouter.authroute);
+    CafeApi.httpPost('/auth/login', data).then((json) {
+      print(json);
+      final authResponse = AuthResponse.fromMap(json);
+      user = authResponse.usuario;  // obtengo el usuario que ya esta autenticado
+      authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
+      LocalStorage.prefs.setString('token', authResponse.token); // token viene del response de la autenticacion del usuario
+      NavigationService.goTo(Flurorouter.authroute);
+      notifyListeners();
+    }
+    
+    ).catchError((e) {
+      print('Error en: $e');
+      NotificationsService.showNotificationError( 'Usuario / Contraseña inválidos' );
+    });
   }
 
   register( String name, String email, String password ) {
@@ -58,6 +69,9 @@ class AuthProvider extends ChangeNotifier {
         authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
         LocalStorage.prefs.setString('token', authResponse.token); // token viene del response de la autenticacion del usuario
         NavigationService.goTo(Flurorouter.authroute);
+
+        CafeApi.configuredDio(); // Necesito llamarlo para que el token generado sea el mismo en cada peticion
+
         notifyListeners();
       }
     ).catchError((e) {
@@ -80,13 +94,29 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }    
 
-    // TODO: ir al backend y comprobar si el JWT sigue siendo valido
+    // Validacion JWT
+    try {
 
-    await Future.delayed(const Duration(milliseconds: 1000)); // para que se espere 1 segundo y despues me devuelva algo.
+      final resp = await CafeApi.httpGet('/auth'); // como la respuesta luce igual al AuthResponse que generamos, entonces la convertimos en uno
+      final authResponse = AuthResponse.fromMap(resp);
 
-    authStatus = AuthStatus.authenticated;
+      user = authResponse.usuario;
+
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+
+    }catch(e) {
+      authStatus = AuthStatus.notAuthenticated;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  logout() {
+    LocalStorage.prefs.remove('token');
+    authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
-    return true;
   }
 
 }
