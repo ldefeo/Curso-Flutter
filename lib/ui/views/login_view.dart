@@ -53,6 +53,7 @@ class LoginView extends StatelessWidget {
                     Title(color: Colors.blueGrey, child: const Text('Log In', style: TextStyle(fontSize: 24),)),
                     const SizedBox(height: 10,),
                     TextFormField(
+                      onFieldSubmitted: ( _ ) => onFormSubmit(loginFormProvider, authProvider),
                       onChanged: ( value ) => loginFormProvider.email = value,
                       validator: ( value ) {
                       if( !EmailValidator.validate(value ?? '') ) return 'Email no válido';
@@ -66,6 +67,7 @@ class LoginView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10,),
                     TextFormField(
+                      onFieldSubmitted: ( _ ) => onFormSubmit(loginFormProvider, authProvider) , // para apretar enter y entrar directo. Se pone en todos los campos de TextFormField que tengamos
                       onChanged: (value) => loginFormProvider.password = value,
                       validator: ( value ) {
                         if (value == null || value.isEmpty ) return 'Ingrese su contraseña';
@@ -82,10 +84,7 @@ class LoginView extends StatelessWidget {
                     ),
                     const SizedBox(height: 20,),
                     OutlinedButton(
-                      onPressed: (){
-                        final validForm = loginFormProvider.validateForm();
-                        if (validForm) authProvider.login(loginFormProvider.email, loginFormProvider.password);
-                      }, 
+                      onPressed: () => onFormSubmit(loginFormProvider, authProvider), 
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -104,5 +103,10 @@ class LoginView extends StatelessWidget {
       );
     })
   );}
+
+  void onFormSubmit(LoginFormProvider loginFormProvider, AuthProvider authProvider) {
+    final validForm = loginFormProvider.validateForm();
+    if (validForm) authProvider.login(loginFormProvider.email, loginFormProvider.password);
+  }
 
 }

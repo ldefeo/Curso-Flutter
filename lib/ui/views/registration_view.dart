@@ -12,6 +12,8 @@ class RegistrationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return ChangeNotifierProvider(
       create: ( _ ) => RegisterFormProvider(),
       child: Builder(builder: ( context ) {
@@ -38,6 +40,7 @@ class RegistrationView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
+                        onFieldSubmitted: ( _ ) => onFormSubmit(registerFormProvider, authProvider),
                         onChanged: ( value ) => registerFormProvider.name = value,
                         validator: ( value ) {
                           if (value == null ) return 'Ingrese su nombre';
@@ -51,6 +54,7 @@ class RegistrationView extends StatelessWidget {
                       ),
                       const SizedBox(height: 30,),
                       TextFormField(
+                        onFieldSubmitted: ( _ ) => onFormSubmit(registerFormProvider, authProvider),
                         onChanged: ( value ) => registerFormProvider.email = value,
                         validator: ( value ) {
                         if( !EmailValidator.validate(value ?? '') ) return 'Email no válido';
@@ -64,6 +68,7 @@ class RegistrationView extends StatelessWidget {
                       ),
                       const SizedBox(height: 30,),
                       TextFormField(
+                        onFieldSubmitted: ( _ ) => onFormSubmit(registerFormProvider, authProvider),  // para apretar enter y entrar directo. Se pone en todos los campos de TextFormField que tengamos
                         onChanged: ( value ) => registerFormProvider.password = value,
                         validator: ( value ) {
                           if (value == null ) return 'Ingrese su contraseña';
@@ -79,17 +84,7 @@ class RegistrationView extends StatelessWidget {
                       ),
                       const SizedBox(height: 50,),
                       OutlinedButton(
-                        onPressed: (){
-                          final validForm = registerFormProvider.validateForm();
-
-                          if ( !validForm ) return;
-
-                          Provider.of<AuthProvider>(context, listen: false).register(
-                            registerFormProvider.name, 
-                            registerFormProvider.email, 
-                            registerFormProvider.password
-                          );
-                        }, 
+                        onPressed: () => onFormSubmit(registerFormProvider, authProvider), 
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -107,6 +102,18 @@ class RegistrationView extends StatelessWidget {
           )
         );
       })
+    );
+  }
+
+  void onFormSubmit( RegisterFormProvider registerFormProvider, AuthProvider authProvider) {
+    final validForm = registerFormProvider.validateForm();
+
+    if ( !validForm ) return;
+
+    authProvider.register(
+      registerFormProvider.name, 
+      registerFormProvider.email, 
+      registerFormProvider.password
     );
   }
 }
