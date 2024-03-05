@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:prueba_1/api/cafe_api.dart';
+import 'package:prueba_1/models/http/auth_response.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
@@ -17,6 +18,8 @@ class AuthProvider extends ChangeNotifier {
   String? token;
 
   AuthStatus authStatus = AuthStatus.checking; // para guardar el estado de la autenticacion y hacer cosas con el.
+
+  Usuario? user;
 
   AuthProvider() {
     isAuthenticated();
@@ -49,10 +52,12 @@ class AuthProvider extends ChangeNotifier {
     CafeApi.httpPost('/usuarios', data).then(
       (json) {
         print(json);
-        // authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
-        // LocalStorage.prefs.setString('token', token!); // el ! es porque yo se que lo tengo, aunque token puede ser opcional
-        // NavigationService.goTo(Flurorouter.authroute);
-        // notifyListeners();
+        final authResponse = AuthResponse.fromMap(json);
+        user = authResponse.usuario;  // obtengo el usuario que ya esta autenticado
+        authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
+        LocalStorage.prefs.setString('token', authResponse.token); // token viene del response de la autenticacion del usuario
+        NavigationService.goTo(Flurorouter.authroute);
+        notifyListeners();
       }
     ).catchError((e) {
       print('Error en: $e');
