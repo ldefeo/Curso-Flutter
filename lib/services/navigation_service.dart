@@ -10,7 +10,7 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamed(routeName);
   }
 
-  static goBack() {
-    return navigatorKey.currentState!.pop();
+  static goBack(String routeName) {
+    return navigatorKey.currentState!.pushReplacementNamed( routeName );
   }
 }

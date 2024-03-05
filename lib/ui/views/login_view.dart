@@ -42,6 +42,7 @@ class LoginView extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0)
             ),
             child: Form(
+              autovalidateMode: AutovalidateMode.always,
               key: loginFormProvider.formKey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -51,11 +52,11 @@ class LoginView extends StatelessWidget {
                     Title(color: Colors.blueGrey, child: const Text('Log In', style: TextStyle(fontSize: 24),)),
                     const SizedBox(height: 10,),
                     TextFormField(
+                      onChanged: (value) => loginFormProvider.user = value,  // Se va a disparar cada vez que cambie el textformfield
                       validator: ( value ) {
                         if (value == null || value.isEmpty ) return 'Ingrese su usuario';
                         return null;
                       } ,
-                      onChanged: (value) => loginFormProvider.user = value,  // Se va a disparar cada vez que cambie el textformfield
                       style: const TextStyle(color: Colors.black),
                       decoration: CustomInputs.loginAndRegisterDecoration(
                         hint: 'Ingrese su usuario',
@@ -65,12 +66,12 @@ class LoginView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10,),
                     TextFormField(
+                      onChanged: (value) => loginFormProvider.password = value,
                       validator: ( value ) {
                         if (value == null || value.isEmpty ) return 'Ingrese su contraseña';
                         if (value.length < 8 ) return 'La contraseña debe ser de 8 caracteres o mas';
                         return null; // Valido
                       },
-                      onChanged: (value) => loginFormProvider.password = value,
                       style: const TextStyle(color: Colors.black),
                       decoration: CustomInputs.loginAndRegisterDecoration(
                         hint: '********',

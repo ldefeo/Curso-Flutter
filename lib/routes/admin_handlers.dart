@@ -28,7 +28,7 @@ class AdminHandler {
 
   static Handler registration = Handler(handlerFunc: (context, params) {
 
-    return const RegistrationView();
+    return RegistrationView();
   });
 
 }

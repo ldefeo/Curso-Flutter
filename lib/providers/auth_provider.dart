@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
@@ -34,6 +35,32 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     NavigationService.goTo(Flurorouter.authroute);
+  }
+
+  register( String name, String email, String password ) {
+
+    final data = {
+      'nombre': name,
+      'correo': email,
+      'password': password
+    };
+
+    //En el path debemos mandar solo la continuacion de la baseUrl que creamos en CafeApi
+    CafeApi.httpPost('/usuarios', data).then(
+      (json) {
+        print(json);
+        // authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
+        // LocalStorage.prefs.setString('token', token!); // el ! es porque yo se que lo tengo, aunque token puede ser opcional
+        // NavigationService.goTo(Flurorouter.authroute);
+        // notifyListeners();
+      }
+    ).catchError((e) {
+      print('Error en: $e');
+    });
+    
+
+    
+
   }
 
   Future<bool> isAuthenticated() async {
