@@ -6,6 +6,7 @@ import 'package:prueba_1/datatables/categories_source.dart';
 import 'package:prueba_1/providers/categories_provider.dart';
 import 'package:prueba_1/ui/buttons/add_button.dart';
 import 'package:prueba_1/ui/labels/custom_labels.dart';
+import 'package:prueba_1/ui/modals/category_modal.dart';
 
 class CategoriesView extends StatefulWidget {
   const CategoriesView({super.key});
@@ -61,7 +62,13 @@ class _CategoriesViewState extends State<CategoriesView> {
             rowsPerPage: _rowsPerPage, // cantidad de filas que muestro por cada hoja de la tabla
             actions: [  // Widgets que se pueden agregar a la tabla para realizar acciones
               AddButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  showModalBottomSheet(
+                    backgroundColor: Colors.transparent,  // para eliminar los piquitos blancos que quedan en los bordes
+                    context: context, 
+                    builder: ( _ ) => CategoryModal(categoria: null)
+                  );
+                }, 
                 text: 'crear', 
                 icon: Icons.add_outlined
               )

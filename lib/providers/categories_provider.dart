@@ -16,7 +16,6 @@ class CategoriesProvider extends ChangeNotifier {
 
     categories = [...categories, ...categoriesResponse.categorias]; // para dejar las categorias que ya teniamos y agregarle las nuevas
 
-    print(categories);
 
     notifyListeners();
   }
