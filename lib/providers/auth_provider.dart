@@ -63,7 +63,6 @@ class AuthProvider extends ChangeNotifier {
     //En el path debemos mandar solo la continuacion de la baseUrl que creamos en CafeApi
     CafeApi.httpPost('/usuarios', data).then(
       (json) {
-        print(json);
         final authResponse = AuthResponse.fromMap(json);
         user = authResponse.usuario;  // obtengo el usuario que ya esta autenticado
         authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla

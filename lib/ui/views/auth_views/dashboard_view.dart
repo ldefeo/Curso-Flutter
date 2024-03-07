@@ -17,6 +17,7 @@ class DashboardView extends StatelessWidget {
     final user = Provider.of<AuthProvider>(context).user!;
 
     return Container(
+      padding: const EdgeInsets.symmetric( horizontal: 30, vertical: 40),
       child: ListView(
         children: [
           Text('Dashboard view', style: CustomLabels.h1),

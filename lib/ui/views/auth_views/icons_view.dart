@@ -10,6 +10,7 @@ class IconsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric( horizontal: 30, vertical: 40),
       child: ListView(
         children: [
           Text('Icons view', style: CustomLabels.h1),

@@ -29,7 +29,11 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
+
+    final categorias = Provider.of<CategoriesProvider>(context).categories;
+
     return Container(
+      padding: const EdgeInsets.symmetric( horizontal: 30, vertical: 40),
       child: ListView(
         children: [
           Text('Categorías', style: CustomLabels.h1),
@@ -43,7 +47,7 @@ class _CategoriesViewState extends State<CategoriesView> {
               DataColumn(label: Text('Creado por')),
               DataColumn(label: Text('Acciones')),
             ], 
-            source: CategoriesDTS() ,  // obligatorio (definicion de filas)
+            source: CategoriesDTS( context, categorias ) ,  // obligatorio (definicion de filas)
             header: const Text('Categorias disponibles'), // titulo de la tabla
             onRowsPerPageChanged: (value) { 
               setState(() {

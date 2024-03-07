@@ -51,8 +51,7 @@ class _AuthLayoutState extends State<AuthLayout> with SingleTickerProviderStateM
                     const Navbar(),
           
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric( horizontal: 30, vertical: 40),
+                      child: Container(
                         child: widget.child,
                       )
                     ) // Contenedor de nuestras views
