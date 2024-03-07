@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/providers/auth_provider.dart';
+import 'package:prueba_1/providers/categories_provider.dart';
 import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
@@ -27,16 +28,12 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          lazy: false,  // quiero que cuando se levante la app, automaticamente empiece el proceso de autenticacion
-          create: (_)=>AuthProvider()
-        ),
+      providers: [// quiero que cuando se levante la app, automaticamente empiece el proceso de autenticacion (para eso se usa lazy = false)
+        ChangeNotifierProvider(lazy: false,  create: ( _ )=>AuthProvider()),
 
-        ChangeNotifierProvider(
-          lazy: false,  // quiero que cuando se levante la app, automaticamente empiece el proceso de autenticacion
-          create: (_)=>SideMenuProvider()
-        ),
+        ChangeNotifierProvider(lazy: false, create: ( _ )=>SideMenuProvider()),
+
+        ChangeNotifierProvider(create: ( _ ) => CategoriesProvider())
       ],
       child: const HomeApp(),
     );

@@ -6,6 +6,7 @@ import 'package:prueba_1/providers/auth_provider.dart';
 import 'package:prueba_1/providers/side_menu_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/ui/views/auth_views/blank_page_view.dart';
+import 'package:prueba_1/ui/views/auth_views/categories_view.dart';
 
 import 'package:prueba_1/ui/views/auth_views/dashboard_view.dart';
 import 'package:prueba_1/ui/views/auth_views/icons_view.dart';
@@ -20,7 +21,7 @@ class AuthHandler {
 
     if (authProvider.authStatus == AuthStatus.authenticated) {
 
-      return DashboardView();
+      return const DashboardView();
 
     }else {
       return const HomeView();
@@ -49,6 +50,20 @@ class AuthHandler {
     if (authProvider.authStatus == AuthStatus.authenticated) {
 
       return const BlankPageView();
+
+    }else {
+      return const HomeView();
+    }
+  });
+
+  static Handler categories = Handler(handlerFunc: (context, params) {
+
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false).setCurrentPage(Flurorouter.categoriesroute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+
+      return const CategoriesView();
 
     }else {
       return const HomeView();
