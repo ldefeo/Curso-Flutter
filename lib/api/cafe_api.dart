@@ -50,4 +50,35 @@ class CafeApi {
 
   }
 
+  static Future httpPut( String path, Map<String,dynamic> data ) async {
+
+    // Debemos convertir la data que llega en el body o informacion de la peticion http
+    final formData = FormData.fromMap(data);
+
+    try {
+
+      final resp = await dio.put(path, data: formData);
+      return resp.data;
+
+    }catch(e) {
+      print(e);
+      throw('ERROR');
+    }
+
+  }
+
+  static Future httpDelete( String path ) async {
+
+    try {
+
+      final resp = await dio.delete(path);
+      return resp.data;
+
+    }catch(e) {
+      print(e);
+      throw('ERROR');
+    }
+
+  }
+
 }

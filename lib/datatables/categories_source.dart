@@ -1,7 +1,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prueba_1/models/category.dart';
+import 'package:prueba_1/providers/categories_provider.dart';
+import 'package:prueba_1/ui/modals/category_modal.dart';
 
 class CategoriesDTS extends DataTableSource{
 
@@ -27,7 +30,13 @@ class CategoriesDTS extends DataTableSource{
           Row(
             children: [
               IconButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  showModalBottomSheet(
+                    backgroundColor: Colors.transparent,
+                    context: context, 
+                    builder: ( _ ) => CategoryModal(categoria: categoria,)
+                  );
+                }, 
                 icon: const Icon(Icons.edit_outlined)
               ),
               IconButton(
@@ -39,7 +48,10 @@ class CategoriesDTS extends DataTableSource{
                       TextButton(onPressed: (){
                         Navigator.of(context).pop();
                       }, child: const Text('Cancelar')),
-                      TextButton(onPressed: (){}, child: const Text('Borrar'))
+                      TextButton(onPressed: () async {
+                        await Provider.of<CategoriesProvider>(context, listen: false).deleteCategory(categoria.id);
+                        Navigator.of(context).pop();
+                      }, child: const Text('Borrar'))
                     ],
                   );
 

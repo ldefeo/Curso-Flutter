@@ -2,7 +2,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:prueba_1/models/category.dart';
+import 'package:prueba_1/providers/categories_provider.dart';
+import 'package:prueba_1/services/notifications_service.dart';
 import 'package:prueba_1/ui/inputs/custom_inputs.dart';
 import 'package:prueba_1/ui/labels/custom_labels.dart';
 
@@ -31,6 +34,9 @@ class _CategoryModalState extends State<CategoryModal> {
 
   @override
   Widget build(BuildContext context) {
+
+    final categoriesProvider = Provider.of<CategoriesProvider>(context, listen: false);
+
     return Container(
       height: 500,
       decoration: buildBoxDecoration(),
@@ -60,7 +66,7 @@ class _CategoryModalState extends State<CategoryModal> {
             const SizedBox(height: 30),
         
             TextFormField(
-              initialValue: widget.categoria?.nombre ?? '',
+              initialValue: '',
               onChanged:(value) => nombre = value,
               decoration: CustomInputs.loginAndRegisterDecoration(
                 hint: 'Nombre de la categoría', 
@@ -82,7 +88,27 @@ class _CategoryModalState extends State<CategoryModal> {
               children: [
                 FilledButton(
                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black26)),
-                  onPressed: (){},
+                  onPressed: () async {
+                
+                    try {
+                      if( id == null ) {
+                        // Crear
+                        await categoriesProvider.newCategory(nombre);
+                        NotificationsService.showSnackbar('$nombre creado!');
+
+                      } else {
+                        // Actualizar
+                        await categoriesProvider.updateCategory( id!, nombre );
+                        NotificationsService.showSnackbar('$nombre Actualizado!');
+                      }
+
+                      Navigator.of(context).pop();
+
+                    } catch (e) {
+                      Navigator.of(context).pop();
+                      NotificationsService.showNotificationError('No se pudo guardar la categoría');
+                    }
+                  },
                   child: const Text('Guardar', style: TextStyle(color: Colors.white)),
                 ),
                 const SizedBox(width: 10,)

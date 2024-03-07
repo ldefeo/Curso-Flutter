@@ -20,4 +20,65 @@ class CategoriesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future newCategory( String nombre ) async{
+
+    final data = {
+      'nombre': nombre
+    };
+
+    try{
+
+      final json = await CafeApi.httpPost('/categorias', data);
+      final newCategory = Categoria.fromMap(json);  // convierto el json en una Categoria
+
+      categories.add(newCategory);
+
+      notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
+
+    }catch(e){
+      print(e);
+    }
+  }
+
+  Future updateCategory(String id, String nombre ) async{
+
+    final data = {
+      'nombre': nombre
+    };
+
+    try{
+
+      await CafeApi.httpPut('/categorias/$id', data);
+      
+      categories = categories.map(
+        (categoria) {
+          if ( categoria.id != id ) return categoria;
+          categoria.nombre = nombre;
+          return categoria;
+        }
+      ).toList();
+
+      notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
+
+    }catch(e){
+      print(e);
+    }
+  }
+
+  Future deleteCategory(String id ) async{
+
+
+    try{
+
+      await CafeApi.httpDelete('/categorias/$id');
+      
+      categories.removeWhere((categoria) => categoria.id == id);
+      
+      notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
+
+    }catch(e){
+      print(e);
+    }
+  }
+
 }
