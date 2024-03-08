@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/models/http/users_response.dart';
 import 'package:prueba_1/models/usuario.dart';
+import 'package:prueba_1/services/notifications_service.dart';
 
 class UsersProvider extends ChangeNotifier {
 
@@ -29,6 +30,23 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
 
   }
+
+  Future<Usuario> getUserById(String uid) async{
+
+    try{
+
+      final resp = await CafeApi.httpGet('/usuarios/$uid');
+      final user = Usuario.fromMap(resp);
+
+      return user;
+
+    }catch(e){
+      NotificationsService.showNotificationError('Error en el GetById');
+      rethrow;
+    }
+  }
+
+
 
   void sort<T>( Comparable<T> Function(Usuario user) getField) {  // para comparar los campos de una columna x y ordenarlos
 
