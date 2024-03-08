@@ -6,11 +6,11 @@ class NavigationService {
 
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  static goTo(String routeName) {
+  static navigateTo(String routeName) {
     return navigatorKey.currentState!.pushNamed(routeName);
   }
 
-  static goBack(String routeName) {
+  static replaceTo(String routeName) {
     return navigatorKey.currentState!.pushReplacementNamed( routeName );
   }
 }

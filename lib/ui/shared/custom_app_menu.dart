@@ -18,17 +18,17 @@ class CustomAppMenu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FilledButton(
-                onPressed: ()=>NavigationService.goTo(Flurorouter.homeroute), 
+                onPressed: ()=>NavigationService.replaceTo(Flurorouter.homeroute), 
                 child: const Icon(Icons.home, size: 20.0,)
               ),
               const SizedBox(width: 10.0),
               FilledButton(
-                onPressed: ()=>NavigationService.goTo(Flurorouter.loginroute),
+                onPressed: ()=>NavigationService.replaceTo(Flurorouter.loginroute),
                 child: const Icon(Icons.login, size: 20.0,)
               ),
               const SizedBox(width: 10.0),
               FilledButton(
-                onPressed: ()=>NavigationService.goTo(Flurorouter.registrationroute),
+                onPressed: ()=>NavigationService.replaceTo(Flurorouter.registrationroute),
                 child: const Icon(Icons.app_registration, size: 20.0,)
               )
             ],

@@ -29,25 +29,22 @@ class AuthProvider extends ChangeNotifier {
   
   login( String email, String password ) {
 
-    //TODO: peticion HTTP
-
     final data = {
       'correo': email,
       'password': password
     };
 
     CafeApi.httpPost('/auth/login', data).then((json) {
-      print(json);
+
       final authResponse = AuthResponse.fromMap(json);
       user = authResponse.usuario;  // obtengo el usuario que ya esta autenticado
       authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
       LocalStorage.prefs.setString('token', authResponse.token); // token viene del response de la autenticacion del usuario
-      NavigationService.goTo(Flurorouter.authroute);
+      NavigationService.replaceTo(Flurorouter.authroute);
       notifyListeners();
     }
     
     ).catchError((e) {
-      print('Error en: $e');
       NotificationsService.showNotificationError( 'Usuario / Contraseña inválidos' );
     });
   }
@@ -63,18 +60,18 @@ class AuthProvider extends ChangeNotifier {
     //En el path debemos mandar solo la continuacion de la baseUrl que creamos en CafeApi
     CafeApi.httpPost('/usuarios', data).then(
       (json) {
+
         final authResponse = AuthResponse.fromMap(json);
         user = authResponse.usuario;  // obtengo el usuario que ya esta autenticado
         authStatus = AuthStatus.authenticated;  // Esto es para navegar a otra pantalla
         LocalStorage.prefs.setString('token', authResponse.token); // token viene del response de la autenticacion del usuario
-        NavigationService.goTo(Flurorouter.authroute);
+        NavigationService.replaceTo(Flurorouter.authroute);
 
         CafeApi.configuredDio(); // Necesito llamarlo para que el token generado sea el mismo en cada peticion
 
         notifyListeners();
       }
     ).catchError((e) {
-      print('Error en: $e');
       NotificationsService.showNotificationError( 'Usuario / Contraseña inválidos' );
     });
     
@@ -93,7 +90,6 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }    
 
-    // Validacion JWT
     try {
 
       final resp = await CafeApi.httpGet('/auth'); // como la respuesta luce igual al AuthResponse que generamos, entonces la convertimos en uno

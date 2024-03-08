@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/models/category.dart';
 import 'package:prueba_1/models/http/categories_response.dart';
+import 'package:prueba_1/services/notifications_service.dart';
 
 class CategoriesProvider extends ChangeNotifier {
 
@@ -36,7 +37,7 @@ class CategoriesProvider extends ChangeNotifier {
       notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
 
     }catch(e){
-      print(e);
+      NotificationsService.showNotificationError('Error en el CREATE');
     }
   }
 
@@ -61,7 +62,7 @@ class CategoriesProvider extends ChangeNotifier {
       notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
 
     }catch(e){
-      print(e);
+      NotificationsService.showNotificationError('Error en el UPDATE');
     }
   }
 
@@ -77,7 +78,7 @@ class CategoriesProvider extends ChangeNotifier {
       notifyListeners();  // reconstruye todo el build de CategoriesView porque su listen esta en true
 
     }catch(e){
-      print(e);
+      NotificationsService.showNotificationError('Error en el DELETE');
     }
   }
 
