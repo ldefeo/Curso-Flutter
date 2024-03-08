@@ -17,6 +17,8 @@ class Flurorouter {
   static String iconsroute = '/auth/icons';
   static String blankroute = '/auth/blank';
   static String categoriesroute = '/auth/categories';
+  static String usersroute = '/auth/users';
+  static String userroute = '/auth/users/:uid';
 
   static void configuredRoutes() {
 
@@ -35,6 +37,10 @@ class Flurorouter {
     router.define(blankroute, handler: AuthHandler.blank,  transitionType: TransitionType.none);
 
     router.define(categoriesroute, handler: AuthHandler.categories,  transitionType: TransitionType.none);
+
+    router.define(usersroute, handler: AuthHandler.users,  transitionType: TransitionType.none);
+
+    router.define(userroute, handler: AuthHandler.user,  transitionType: TransitionType.none);
 
     // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;

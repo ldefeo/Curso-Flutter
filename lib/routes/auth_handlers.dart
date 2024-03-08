@@ -10,6 +10,8 @@ import 'package:prueba_1/ui/views/auth_views/categories_view.dart';
 
 import 'package:prueba_1/ui/views/auth_views/dashboard_view.dart';
 import 'package:prueba_1/ui/views/auth_views/icons_view.dart';
+import 'package:prueba_1/ui/views/auth_views/user_form_view.dart';
+import 'package:prueba_1/ui/views/auth_views/users_view.dart';
 import 'package:prueba_1/ui/views/home_view.dart';
 
 class AuthHandler {
@@ -64,6 +66,39 @@ class AuthHandler {
     if (authProvider.authStatus == AuthStatus.authenticated) {
 
       return const CategoriesView();
+
+    }else {
+      return const HomeView();
+    }
+  });
+
+  static Handler users = Handler(handlerFunc: (context, params) {
+
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false).setCurrentPage(Flurorouter.usersroute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+
+      return const UsersView();
+
+    }else {
+      return const HomeView();
+    }
+  });
+
+  static Handler user = Handler(handlerFunc: (context, params) {
+
+    final authProvider = Provider.of<AuthProvider>(context!);
+    Provider.of<SideMenuProvider>(context, listen: false).setCurrentPage(Flurorouter.userroute);
+
+    if (authProvider.authStatus == AuthStatus.authenticated) {
+
+      if ( params['uid']?.first != null){
+
+        return UserFormView(uid: params['uid']!.first);
+      }else{
+        return const UsersView();
+      }
 
     }else {
       return const HomeView();

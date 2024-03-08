@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/models/http/auth_response.dart';
+import 'package:prueba_1/models/usuario.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';

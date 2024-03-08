@@ -4,6 +4,7 @@ import 'package:prueba_1/api/cafe_api.dart';
 import 'package:prueba_1/providers/auth_provider.dart';
 import 'package:prueba_1/providers/categories_provider.dart';
 import 'package:prueba_1/providers/side_menu_provider.dart';
+import 'package:prueba_1/providers/users_provider.dart';
 import 'package:prueba_1/routes/router.dart';
 import 'package:prueba_1/services/local_storage.dart';
 import 'package:prueba_1/services/navigation_service.dart';
@@ -33,7 +34,9 @@ class AppState extends StatelessWidget {
 
         ChangeNotifierProvider(lazy: false, create: ( _ )=>SideMenuProvider()),
 
-        ChangeNotifierProvider(create: ( _ ) => CategoriesProvider())
+        ChangeNotifierProvider(create: ( _ ) => CategoriesProvider()),
+
+        ChangeNotifierProvider(create: ( _ ) => UsersProvider())
       ],
       child: const HomeApp(),
     );
