@@ -37,5 +37,20 @@ class CustomInputs {
 
   );
 
+  static InputDecoration formInputDecoration({
+    required String hint,
+    required String label,
+    IconData? icon,
+  }
+  ) => InputDecoration(
+    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.indigo.withOpacity(0.3))),
+    enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.indigo)),
+    hintText: hint,
+    labelText: label,
+    prefixIcon: Icon(icon, color: Colors.grey),
+    hintStyle: TextStyle(color: Colors.grey),
+    labelStyle: TextStyle(color: Colors.grey),
 
+
+  );
 }

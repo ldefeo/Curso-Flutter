@@ -46,8 +46,6 @@ class UsersProvider extends ChangeNotifier {
     }
   }
 
-
-
   void sort<T>( Comparable<T> Function(Usuario user) getField) {  // para comparar los campos de una columna x y ordenarlos
 
     users.sort( (a,b) {
@@ -67,4 +65,15 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  void updateUser( Usuario user) {   //actualizacion de la lista de usuarios
+
+    users = users.map(
+      (usuario){
+        if (usuario.uid == user.uid) usuario = user;
+        return usuario;
+    }).toList();
+  }
+  
+  notifyListeners();
 }
